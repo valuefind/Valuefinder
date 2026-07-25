@@ -1,3 +1,7 @@
+   import pickle
+
+   def load(path):
+       return pickle.load(open(path, 'rb'))
 import os
 import streamlit as st
 import pandas as pd
