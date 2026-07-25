@@ -1,49 +1,38 @@
+
 import streamlit as st
 import pandas as pd
-import pickle
-
-def load(path):
-    return pickle.load(open(path, 'rb'))
+import numpy as np
 
 st.set_page_config(page_title="ValueFinder", layout="wide")
-st.title("⚽ ValueFinder App")
-st.write("Find your best matches!")
+st.title("⚽ ValueFinder App - DEMO MODE")
+st.write("This is using fake data so you can see it work")
 
-# ========== LOAD YOUR FILES HERE ==========
-# CHANGE THESE FILENAMES TO MATCH WHAT YOU UPLOADED TO GITHUB
-try:
-    model = load('model.pkl')  # change to your model name
-    df = pd.read_csv('data.csv')  # change to your data name
-    st.success("Model and Data loaded successfully!")
-except Exception as e:
-    st.error(f"Error loading files: {e}")
-    st.stop()
+# ========== FAKE DATA BUILT INTO APP ==========
+data = {
+    'Player': ['Messi', 'Ronaldo', 'Haaland', 'Mbappe', 'De Bruyne'],
+    'Age': [36, 39, 24, 25, 33],
+    'Position': ['RW', 'ST', 'ST', 'LW', 'CM'],
+    'Rating': [93, 91, 90, 92, 91],
+    'Value': ['$50M', '$45M', '$180M', '$170M', '$100M']
+}
+df = pd.DataFrame(data)
+
+st.success("Demo data loaded!")
 
 # ========== INPUT SECTION ==========
-st.header("Enter Details to Find Matches")
+st.header("Find Similar Players")
 
 col1, col2 = st.columns(2)
-
 with col1:
-    # EXAMPLE: change these to match your data columns
-    player_name = st.text_input("Player Name")
-    age = st.number_input("Age", min_value=16, max_value=45, value=25)
-    
+    position = st.selectbox("Position", ['ST', 'CM', 'RW', 'LW', 'CB'])
 with col2:
-    # EXAMPLE: change these to match your data columns
-    position = st.selectbox("Position", ['ST', 'CM', 'CB', 'GK'])
-    rating = st.slider("Rating", 0, 100, 75)
+    min_rating = st.slider("Min Rating", 80, 95, 88)
 
 if st.button("🔍 Find Matches", type="primary"):
-    # ========== MATCHING LOGIC ==========
-    # CHANGE THIS TO YOUR REAL PREDICTION/MATCHING CODE
+    matches = df[df['Position'] == position]
+    matches = matches[matches['Rating'] >= min_rating]
+    
     st.subheader("Top Matches")
-    
-    # Example: just show first 5 rows as "matches"
-    # Replace this with: model.predict() or your similarity logic
-    matches = df.head(5) 
-    
     st.dataframe(matches, use_container_width=True)
-    st.success(f"Found {len(matches)} matches!")
 
-st.caption("Built with Streamlit")
+st.caption("Upload your real model.pkl and data.csv later to use your own data")
