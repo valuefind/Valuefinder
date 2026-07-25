@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import requests
-from joblib import load, dump
+   import pickle
+
+   def load(path):
+       return pickle.load(open(path, 'rb'))
 import os
 from dotenv import load_dotenv
 
