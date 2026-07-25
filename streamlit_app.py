@@ -1,12 +1,13 @@
+   import os
+   import streamlit as st
+   import pandas as pd
+   import pickle
 
+   def load(path):
+       return pickle.load(open(path, 'rb'))
 import osimport streamlit as st
 import pandas as pd
-import pickle
-def load(path):
-return pickle.load(open(path, 'rb'))
-from dotenv import load_dotenv
-
-st.set_page_config(page_title="ValueFinder V4 - FotMob XGBoost", page_icon="🌍", layout="wide")
+import 
 
 load_dotenv()
 
