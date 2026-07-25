@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
-import joblib
+import from joblib import load, dump
 import os
 from dotenv import load_dotenv
 
