@@ -1,7 +1,7 @@
 streamlit
 pandas
 requests
-from joblib import load, dump
+joblib
 xgboost
 python-dotenv
 scikit-learn
